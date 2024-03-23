@@ -15,18 +15,18 @@ export default class App extends Component {
   state = { ...initialState }
 
   addDigit = n => {
-    const clearDisplay = this.state.displayValue === '0'
+    const clearDisplay = this.state.displayValue === '0' && n !== '.'
       || this.state.clearDisplay
-    
+  
     if (n === '.' && !clearDisplay 
       && this.state.displayValue.includes('.')) {
       return
     }
-
+  
     const currentValue = clearDisplay ? '' : this.state.displayValue
     const displayValue = currentValue + n
     this.setState({ displayValue, clearDisplay: false })
-
+  
     if (n !== '.') {
       const newValue = parseFloat(displayValue)
       const values = [...this.state.values]
@@ -34,6 +34,7 @@ export default class App extends Component {
       this.setState({ values })
     }
   }
+   
 
   clearMemory = () => {
     this.setState({ ...initialState })
